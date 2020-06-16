@@ -4,12 +4,12 @@ const companies = createAll();
 cleanConsole(4, companies);
 console.log('---- EXAMPLE 4 --- ', 'Put here your function');
 
-function solution4(companies) {
+export function solution4(companies) {
   try {
     const comps = [...companies];
     assingCompanyNames(comps);
     sortUsersByAge(comps);
-    console.log(comps);
+    return [...comps];
   } catch (e) {
     console.log(e.name, e.message);
   }

@@ -1,8 +1,61 @@
 import {cleanConsole, createAll} from './data';
+import {solution4} from './example-4.js';
 const companies = createAll();
 
 cleanConsole(5, companies);
 console.log('---- EXAMPLE 5 --- ', 'Put here your function');
+
+function solution5(comps) {
+  try {
+    const size = totalUsers();
+    const average = averageAge().reduce((a, b) => a + b) / averageAge().length;
+    const hasCar = totalHasCar()[0];
+    const averageWithCar = totalHasCar()[1].reduce((a, b) => a + b) / hasCar;
+    return {
+      size,
+      average,
+      hasCar,
+      averageWithCar,
+    };
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+
+function totalUsers() {
+  let size = 0;
+  comps.forEach((company) => {
+    size += company.usersLength;
+  });
+  return size;
+};
+
+function averageAge() {
+  const ages = [];
+  comps.forEach((company) => {
+    company.users.forEach((user) => {
+      ages.push(user.age);
+    });
+  });
+  return ages;
+};
+
+function totalHasCar() {
+  let hasCar = 0;
+  const ageUsersWithCar = [];
+  comps.forEach((company) => {
+    company.users.forEach((user) => {
+      if (user.car) {
+        hasCar++;
+        ageUsersWithCar.push(user.age);
+      }
+    });
+  });
+  return [hasCar, ageUsersWithCar];
+};
+
+const comps = solution4(companies);
+solution5(comps);
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
