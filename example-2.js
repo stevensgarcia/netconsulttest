@@ -4,16 +4,23 @@ const companies = createAll();
 cleanConsole(2, companies);
 console.log('---- EXAMPLE 2 --- ', 'Put here your function');
 
+
 function solution2(companies, hasCar) {
-  companies.forEach((company) => {
-    company.users = company.users.filter((user) => {
-      return user.car === hasCar;
+  const comps = [...companies];
+  try {
+    comps.forEach((company) => {
+      company.users = company.users.filter((user) => {
+        return user.car === hasCar;
+      });
+      company.usersLength = company.users.length;
     });
-    company.usersLength = company.users.length;
-  });
+    return comps;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
 };
 
-solution2(companies, false);
+solution2(companies, true);
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL

@@ -1,9 +1,80 @@
 import {cleanConsole, createAll} from './data';
+import {solution1} from './example-1.js';
 
 const companies = createAll();
 
 cleanConsole(3, companies);
 console.log('---- EXAMPLE 3 --- ', 'Put here your function');
+
+function solution3(companies) {
+  try {
+    const result = [
+      checkCompanyNames(companies),
+      checkUserName(filterUsersWithNames(companies)),
+      checkUserLastName(filterUsersWithLastNames(companies)),
+    ];
+    console.log(result.every((isCapitalized) => isCapitalized));
+    return result.every((isCapitalized) => isCapitalized);
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+
+function checkCompanyNames(comps) {
+  const result = [];
+  companies.forEach((company) => {
+    result.push(startWithCapital(company.name));
+  });
+  return result;
+};
+
+function checkUserName(comps) {
+  const result = [];
+  comps.forEach((company) => {
+    company.users.forEach((user) => {
+      result.push(startWithCapital(user.firstName));
+    });
+  });
+  return result;
+};
+
+function checkUserLastName(comps) {
+  const result = [];
+  comps.forEach((company) => {
+    company.users.forEach((user) => {
+      result.push(startWithCapital(user.lastName));
+    });
+  });
+  return result;
+};
+
+function startWithCapital(value) {
+  if (value.length > 0 && value !== '') {
+    const isCapitalized = /^[A-Z]/.test(value);
+    return isCapitalized;
+  }
+};
+
+function filterUsersWithNames(comps) {
+  comps.forEach((company) => {
+    company.users = company.users.filter((user) => {
+      return user.firstName !== '';
+    });
+  });
+  return [...comps];
+};
+
+function filterUsersWithLastNames(comps) {
+  comps.forEach((company) => {
+    company.users = company.users.filter((user) => {
+      return user.lastName !== '';
+    });
+  });
+  return [...comps];
+};
+
+const comps = solution1(companies);
+solution3(comps);
 
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL

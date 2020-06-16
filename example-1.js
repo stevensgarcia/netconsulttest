@@ -4,15 +4,21 @@ const companies = createAll();
 cleanConsole(1, companies);
 console.log('---- EXAMPLE 1 --- ', 'Put here your function');
 
-function solution1(companies) {
-  replaceUndefinedValues(companies);
-  capitalizeStrings(companies);
-  companies.sort(compareUsers);
-  sortUsers(companies);
+export function solution1(companies) {
+  try {
+    const comps = [...companies];
+    replaceUndefinedValues(comps);
+    capitalizeStrings(comps);
+    comps.sort(compareUsers);
+    sortUsers(comps);
+    return [...comps];
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
 };
 
-function replaceUndefinedValues(companies) {
-  companies.forEach((company) => {
+function replaceUndefinedValues(comps) {
+  comps.forEach((company) => {
     company.users.forEach((user) => {
       for (const key of Object.keys(user)) {
         if (user[key] === undefined) {
@@ -23,8 +29,8 @@ function replaceUndefinedValues(companies) {
   });
 };
 
-function capitalizeStrings(companies) {
-  companies.forEach((company) => {
+function capitalizeStrings(comps) {
+  comps.forEach((company) => {
     company.name = capitalize(company.name);
     company.users.forEach((user) => {
       user.firstName = capitalize(user.firstName);
@@ -47,8 +53,8 @@ function compareUsers(a, b) {
   return comparison * -1;
 };
 
-function sortUsers(companies) {
-  companies.forEach((company) => {
+function sortUsers(comps) {
+  comps.forEach((company) => {
     company.users.sort(compareUsersNames);
   });
 };
