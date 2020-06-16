@@ -13,7 +13,6 @@ function solution3(companies) {
       checkUserName(filterUsersWithNames(companies)),
       checkUserLastName(filterUsersWithLastNames(companies)),
     ];
-    console.log(result.every((isCapitalized) => isCapitalized));
     return result.every((isCapitalized) => isCapitalized);
   } catch (e) {
     console.log(e.name, e.message);

@@ -4,6 +4,43 @@ const companies = createAll();
 cleanConsole(4, companies);
 console.log('---- EXAMPLE 4 --- ', 'Put here your function');
 
+function solution4(companies) {
+  try {
+    const comps = [...companies];
+    assingCompanyNames(comps);
+    sortUsersByAge(comps);
+    console.log(comps);
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+
+function assingCompanyNames(comps) {
+  comps.forEach((company) => {
+    company.users.forEach((user) => {
+      user['company'] = company.name;
+    });
+  });
+};
+
+function sortUsersByAge(comps) {
+  comps.forEach((company) => {
+    company.users.sort(compareUserAge);
+  });
+};
+
+function compareUserAge(a, b) {
+  let comparison = 0;
+  if (a.age > b.age) {
+    comparison = 1;
+  } else if (a.age < b.age) {
+    comparison = -1;
+  }
+  return comparison * -1;
+};
+
+solution4(companies);
+
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
