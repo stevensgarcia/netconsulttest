@@ -5,6 +5,24 @@ const companies = createAll();
 cleanConsole(6, companies);
 console.log('---- EXAMPLE 6 --- ', 'Put here your function');
 
+function solution6(companies) {
+  try {
+    const result = {};
+    const comps = [...companies];
+    comps.forEach((company) => {
+      company.users.forEach((user) => {
+        result[`${user.firstName.concat(user.lastName).concat(user.age)}`] = user.car;
+      });
+    });
+    console.log(result);
+    return result;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+
+solution6(companies);
+
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
