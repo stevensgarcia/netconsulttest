@@ -14,7 +14,6 @@ function solution6(companies) {
         result[`${user.firstName.concat(user.lastName).concat(user.age)}`] = user.car;
       });
     });
-    console.log(result);
     return result;
   } catch (e) {
     console.log(e.name, e.message);

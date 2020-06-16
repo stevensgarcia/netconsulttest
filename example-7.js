@@ -4,15 +4,160 @@ const companies = createAll();
 
 cleanConsole(7, companies);
 console.log('---- EXAMPLE 7 part 1 --- ', 'Put here your function');
+function getCompany(companyId) {
+  try {
+    return companies.find((company) => company.id).name;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+getCompany(1);
 console.log('---- EXAMPLE 7 part 2 --- ', 'Put here your function');
+function removeCompany(companyId) {
+  try {
+    const company = companies.findIndex((c) => c.id === companyId);
+    companies.splice(company, 1);
+    return company;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+removeCompany(4);
 console.log('---- EXAMPLE 7 part 3 --- ', 'Put here your function');
+function patchCompany(companyId, patchObject) {
+  try {
+    const company = companies.find((c) => c.id === companyId);
+    (patchObject.users) ? delete patchObject.users : null;
+    return Object.assign(company, patchObject);
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+const patchCompanyOb = {
+  name: 'NetConsult',
+  users: [],
+  isOpen: false,
+};
+patchCompany(5, patchCompanyOb);
 console.log('---- EXAMPLE 7 part 4 --- ', 'Put here your function');
+function addUser(companyId, newUser) {
+  try {
+    const company = companies.find((c) => c.id === companyId);
+    newUser.id = ++company.users.length;
+    company.users.push(newUser);
+    company.usersLength = company.users.length;
+    return company;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+const newUser = {
+  firstName: 'Juan',
+  lastName: 'Delgado',
+  age: 35,
+  car: true,
+};
+addUser(6, newUser);
 console.log('---- EXAMPLE 7 part 5 --- ', 'Put here your function');
+function putCompany(companyId, updateObject) {
+  try {
+    let company = companies.find((c) => c.id === companyId);
+    (updateObject.users) ? delete updateObject.users : null;
+    updateObject.users = company.users;
+    company = updateObject;
+    return company;
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+const updateCompanyOb = {
+  name: 'SomeCompany',
+  users: [{}, {}],
+  isOpen: true,
+};
+putCompany(5, updateCompanyOb);
 console.log('---- EXAMPLE 7 part 6 --- ', 'Put here your function');
+function removeUser(companyId, userId) {
+  try {
+    const company = companies.find((c) => c.id === companyId);
+    const user = company.users.findIndex((u) => u.id === userId);
+    if (user > 0) {
+      company.users.splice(user, 1);
+      company.usersLength = company.users.length;
+      return user;
+    } else {
+      throw new Error(`User ${userid} does not exists!`);
+    }
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+}
+removeUser(7, 5);
 console.log('---- EXAMPLE 7 part 7 --- ', 'Put here your function');
+function patchUser(companyId, userId, patchUserObj) {
+  try {
+    const company = companies.find((c) => c.id === companyId);
+    const user = company.users.find((u) => u.id === userId);
+    if (user) {
+      Object.assign(user, patchUserObj);
+    } else {
+      throw new Error(`User ${userid} does not exists!`);
+    }
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+const patchUserObj = {
+  firstName: 'Stevens',
+};
+patchUser(0, 0, patchUserObj);
 console.log('---- EXAMPLE 7 part 8 --- ', 'Put here your function');
+// Parte 8: Crear una función tomando como parámetro un "id" de "company" y un
+// "id" de "user" que permite hacer un PUT (como con una llamada HTTP) en este
+// "user".
+function putUser(companyId, userId, putUserObj) {
+  try {
+    const company = companies.find((c) => c.id === companyId);
+    const user = company.users.findIndex((u) => u.id === userId);
+    if (user > 0) {
+      putUserObj.id = company.users[user].id;
+      company.users[user] = putUserObj;
+    } else {
+      throw new Error(`User ${userid} does not exists!`);
+    }
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+const putUserObj = {
+  firstName: 'Stevens',
+  lastName: 'Garcia',
+  car: true,
+  age: 31,
+};
+putUser(1, 1, putUserObj);
 console.log('---- EXAMPLE 7 part 9 --- ', 'Put here your function');
-
+function transferUser(companyIdFrom, companyIdTo, userId) {
+  try {
+    const company1 = companies.find((c) => c.id === companyIdFrom);
+    const company2 = companies.find((c) => c.id === companyIdTo);
+    const user = company1.users.findIndex((u) => u.id === userId);
+    if (user > 0) {
+      console.log(company1.users[user]);
+      // Delete the user
+      company1.users.splice(user, 1);
+      company1.usersLength = company1.users.length;
+      // Insert the user (transfer)
+      company2.users.push(company1.users[user]);
+      company2.usersLength = company2.users.length;
+    } else {
+      throw new Error(`User ${userid} does not exists!`);
+    }
+  } catch (e) {
+    console.log(e.name, e.message);
+  }
+};
+transferUser(0, 1, 7);
 // -----------------------------------------------------------------------------
 // INSTRUCCIONES EN ESPAÑOL
 
